@@ -1,0 +1,4 @@
+{
+    "administrator": ["Administrator","Spectator"],
+    "spectator": ["Spectator"]
+}
