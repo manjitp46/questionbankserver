@@ -2,5 +2,31 @@
   "swagger": "2.0",
   "info": {
     "$ref": "./info/index.json"
+  },
+  "paths": {
+    "/questionbank/v1/listcategory": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Helps to list out available category",
+        "description": "list category availabe in database",
+        "operationId": "listcategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully Listed"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
   }
 }

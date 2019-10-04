@@ -98,9 +98,9 @@ export class RestServer extends BaseObject implements HTTPServer {
   public startRestServer(cb?:Function) {
     this.express = express();
     // this.dbConnection = dbConnectionObject;
-    if(this.checkIFApplicationAlreadyRunning()) {
-      throw Error("Application is already running")
-    }
+    // if(this.checkIFApplicationAlreadyRunning()) {
+    //   throw Error("Application is already running")
+    // }
     this.setServerSpecificConfigs();
     this.configurePlugins();
     this.configureSwagger();
