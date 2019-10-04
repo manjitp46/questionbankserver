@@ -40,7 +40,13 @@ export var ServerConfigs = {
   },
   dbConfigs: {
     dev: {
-      dbType: "sqllite"
+      host: "localhost",
+      port: 27017,
+      dbName: "questionbank",
+      scheme: "mongodb://",
+      serverOptions: {
+        useNewUrlParser: true
+      }
     },
     preprod: {},
     production: {}

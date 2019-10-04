@@ -1,0 +1,11 @@
+{
+  "category": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "example": "Science and Technology"
+      }
+    }
+  }
+}

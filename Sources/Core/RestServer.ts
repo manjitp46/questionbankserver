@@ -9,7 +9,7 @@ import * as swaggerDocument from "../Swagger-Docs/swagger-docs.json";
 import helmet from "helmet";
 import * as path from "path";
 import morgan = require("morgan");
-
+import { MongoDataStore } from "../DataStore.ts/MongoDataStore";
 export class RestServer extends BaseObject implements HTTPServer {
   private express: Application;
   NODE_ENV: string = process.env["NODE_ENV"] || "dev";
@@ -155,6 +155,7 @@ export class RestServer extends BaseObject implements HTTPServer {
     }
   }
   private setServerSpecificConfigs(): void {
+    MongoDataStore.getInstance();
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
     if(this.NODE_ENV==="dev") {
       this.express.use(morgan('combined'));

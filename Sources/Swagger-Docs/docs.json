@@ -27,6 +27,44 @@
           }
         }
       }
+    },
+    "/questionbank/v1/addcategory": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "summary": "Helps to list out available category",
+        "description": "list category availabe in database",
+        "operationId": "addcategory",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "description": "Add a new Category",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions/category.json/#/category"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully added"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
