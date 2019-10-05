@@ -1,0 +1,10 @@
+{
+  "http_ok": {
+    "200": {
+      "description": "Successfully Listed"
+    },
+    "500": {
+      "description": "Internal Server Error"
+    }
+  }
+}
