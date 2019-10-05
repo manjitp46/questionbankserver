@@ -2,10 +2,9 @@ import { Logger } from "../Logger";
 import { ServerConfigs } from "../Config/ServerConfigs";
 import { HTTP_CODES } from "../HTTP_CODES/index";
 import * as UserRolesConfigs from "../Config/UserRolesConfigs.json";
-import * as os from 'os';
-import * as fs from 'fs';
-import * as path from 'path';
-
+import * as os from "os";
+import * as fs from "fs";
+import * as path from "path";
 
 export class BaseObject {
   public Logger: Logger;
@@ -31,47 +30,73 @@ export class BaseObject {
     return os.homedir();
   }
 
-  public createDirectoryIfNotExist(path:string) {
-    if(!fs.existsSync(path)){
+  public createDirectoryIfNotExist(path: string) {
+    if (!fs.existsSync(path)) {
       fs.mkdirSync(path);
     }
   }
-  
+
   public getWorkingFolderPath() {
     var appName = this.ServerConfigs.appName;
-    return path.join(this.getUserHomeDirectory(),appName)
+    return path.join(this.getUserHomeDirectory(), appName);
   }
 
   public createApplicationPID() {
-    this.Logger.info("Creating Application pid: ", process.pid)
+    this.Logger.info("Creating Application pid: ", process.pid);
     var workingFolderPath = this.getWorkingFolderPath();
     this.createDirectoryIfNotExist(workingFolderPath);
-    fs.writeFileSync(path.join(workingFolderPath,"pid"),process.pid,'utf-8');
-    this.Logger.info("SuccessFully created PID @: ", path.join(workingFolderPath,"pid"))
+    fs.writeFileSync(path.join(workingFolderPath, "pid"), process.pid, "utf-8");
+    this.Logger.info(
+      "SuccessFully created PID @: ",
+      path.join(workingFolderPath, "pid")
+    );
   }
 
   public deleteApplicationPID() {
     var workingFolderPath = this.getWorkingFolderPath();
-    this.Logger.info("Deleing PID @",path.join(workingFolderPath,"pid"));
+    this.Logger.info("Deleing PID @", path.join(workingFolderPath, "pid"));
     this.createDirectoryIfNotExist(workingFolderPath);
-    fs.unlinkSync(path.join(workingFolderPath,"pid"));
-    this.Logger.info("SuccessFully deleted PID @",path.join(workingFolderPath,"pid"));
+    fs.unlinkSync(path.join(workingFolderPath, "pid"));
+    this.Logger.info(
+      "SuccessFully deleted PID @",
+      path.join(workingFolderPath, "pid")
+    );
   }
   public checkIFApplicationAlreadyRunning() {
-    var workingFolderPath = path.join(this.getWorkingFolderPath(),"pid");
+    var workingFolderPath = path.join(this.getWorkingFolderPath(), "pid");
     return fs.existsSync(workingFolderPath);
+  }
+
+  public shuffle(array: Array<any>) {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
   }
 }
 
 // code for handling ctrl+c event
 //  putting inside base object because every class as base object
-process.on("SIGINT", function () {
+process.on("SIGINT", function() {
   process.exit();
 });
 
-process.on('exit',()=>{
+process.on("exit", () => {
   var bs = new BaseObject();
-  bs.Logger.info("Stopping Application")
+  bs.Logger.info("Stopping Application");
   bs.deleteApplicationPID();
-  bs.Logger.info("Application Stopped...")
-})
+  bs.Logger.info("Application Stopped...");
+});

@@ -23,5 +23,14 @@
         "example": "single"
       }
     }
+  },
+  "listquestion": {
+    "type": "object",
+    "properties": {
+      "categoryid": {
+        "type": "array",
+        "example": ["8659c343-4320-48cd-aee3-bdd6f8275a1f"]
+      }
+    }
   }
 }

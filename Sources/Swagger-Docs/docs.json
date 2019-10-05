@@ -69,6 +69,30 @@
           "$ref": "./definitions/itemcreated.json/#/itemcreated"
         }
       }
+    },
+    "/questionbank/v1/listquestions": {
+      "post": {
+        "tags": ["Questions"],
+        "summary": "Helps to Listout Questions",
+        "description": "Show Questions based on category",
+        "operationId": "listquestion",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "description": "List Question",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions/question.json/#/listquestion"
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "./definitions/httpresponses.json/#/http_ok"
+        }
+      }
     }
   }
 }

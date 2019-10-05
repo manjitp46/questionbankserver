@@ -30,4 +30,39 @@ export class QuestionService extends BaseObject {
       throw error;
     }
   }
+
+  private async seachQuestionWithCategory(category: Array<string>) {
+    try {
+      var query = { categoryid: { $in: category } };
+      var result = await this.db.collection(this.COLLECTION_NAME).find(query);
+      return result.toArray();
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async refactorQuestionAndOptionSequence(categoryid: Array<string>) {
+    let _this = this;
+    let allQuestions = await this.seachQuestionWithCategory(categoryid);
+    allQuestions = _this.shuffle(
+      allQuestions.map((item: any, index: number) => {
+        if (item.options) {
+          item.options = _this.shuffle(item.options);
+        }
+        return item;
+      })
+    );
+    return allQuestions;
+  }
+
+  public async listQuestions(params: object) {
+    try {
+      let allQuestions = await this.refactorQuestionAndOptionSequence(
+        params["categoryid"]
+      );
+      return allQuestions;
+    } catch (error) {
+      throw error;
+    }
+  }
 }

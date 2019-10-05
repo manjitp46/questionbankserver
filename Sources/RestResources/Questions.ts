@@ -9,6 +9,7 @@ import { QuestionService } from "../DataStore.ts/QuestionService";
 export class Questions extends BaseObject implements BaseRestResource {
   initialize(httpServer: HTTPServer): void {
     httpServer.post("/addquestion", this.addQuestion.bind(this));
+    httpServer.post("/listquestions", this.listQuestions.bind(this));
   }
 
   public async addQuestion(
@@ -17,7 +18,6 @@ export class Questions extends BaseObject implements BaseRestResource {
     next: Function
   ): Promise<any> {
     let reqBody = req.body;
-    this.Logger.debug(reqBody);
     var responseToReturn = {};
     var responseStatusCode = this.HTTP_CODES.HTTP_RESOURCE_CREATED;
     responseToReturn["Message"] = "Succesfully Added";
@@ -40,9 +40,33 @@ export class Questions extends BaseObject implements BaseRestResource {
         let result = await questionService.addQuestionToDB(reqBody);
         responseToReturn["Data"] = result.ops;
       } catch (error) {
-          throw error;
+        throw error;
       }
     }
     res.status(responseStatusCode).send(responseToReturn);
   }
+
+  public async listQuestions(
+    req: Request,
+    res: Response,
+    next: Function
+  ): Promise<any> {
+    let reqBody = req.body;
+    var responseToReturn = {};
+    var responseStatusCode = this.HTTP_CODES.HTTP_OK;
+    responseToReturn["Message"] = "Succesfully listed";
+    responseToReturn["ErrorCode"] = 0;
+    responseToReturn["Data"] = null;
+    if(!reqBody.categoryid) {
+      responseStatusCode = this.HTTP_CODES.BAD_REQUEST;
+      responseToReturn["Message"] = "Mandatory params are missing!";
+      responseToReturn["ErrorCode"] = -1;
+    }else {
+      let questionService = new QuestionService();
+      let result = await questionService.listQuestions(reqBody);
+      responseToReturn["Data"] = result;
+    }
+    res.status(responseStatusCode).send(responseToReturn);
+  }
+  
 }
