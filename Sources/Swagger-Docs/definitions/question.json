@@ -1,0 +1,27 @@
+{
+  "question": {
+    "type": "object",
+    "properties": {
+      "categoryid": {
+        "type": "array",
+        "example": ["8659c343-4320-48cd-aee3-bdd6f8275a1f"]
+      },
+      "question": {
+        "type": "string",
+        "example": "Who is first president of india"
+      },
+      "options": {
+        "type": "array",
+        "example": ["option1", "option2", "option3", "option4"]
+      },
+      "answer": {
+        "type": "array",
+        "example": ["option1"]
+      },
+      "questiontype": {
+        "type": "string",
+        "example": "single"
+      }
+    }
+  }
+}

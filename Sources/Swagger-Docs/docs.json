@@ -6,18 +6,12 @@
   "paths": {
     "/questionbank/v1/listcategory": {
       "get": {
-        "tags": [
-          "Category"
-        ],
+        "tags": ["Category"],
         "summary": "Helps to list out available category",
         "description": "list category availabe in database",
         "operationId": "listcategory",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "Successfully Listed"
@@ -30,18 +24,12 @@
     },
     "/questionbank/v1/addcategory": {
       "post": {
-        "tags": [
-          "Category"
-        ],
+        "tags": ["Category"],
         "summary": "Helps to list out available category",
         "description": "list category availabe in database",
         "operationId": "addcategory",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
             "in": "body",
@@ -54,15 +42,31 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Successfully added"
-          },
-          "400": {
-            "description": "Bad Request"
-          },
-          "500": {
-            "description": "Internal Server Error"
+          "$ref": "./definitions/itemcreated.json/#/itemcreated"
+        }
+      }
+    },
+    "/questionbank/v1/addquestion": {
+      "post": {
+        "tags": ["Questions"],
+        "summary": "Helps to add new questions",
+        "description": "add new question to question bank",
+        "operationId": "addquestion",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "description": "Add a new Question",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions/question.json/#/question"
+            }
           }
+        ],
+        "responses": {
+          "$ref": "./definitions/itemcreated.json/#/itemcreated"
         }
       }
     }
