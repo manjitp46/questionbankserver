@@ -1,3 +1,5 @@
 node_modules/
 Sources/Swagger-Docs/swagger-docs.json
 package-lock.json
+build/
+test*

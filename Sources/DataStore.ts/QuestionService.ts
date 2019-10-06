@@ -1,15 +1,19 @@
 import { BaseObject } from "../Utils/BaseObject";
 import { MongoDataStore } from "./MongoDataStore";
 import { CategoryService } from "./CategoryService";
+import { AnswerService } from "./AnswerService";
+import { v4 as uuid } from "uuid";
 
 export class QuestionService extends BaseObject {
   db: any;
   COLLECTION_NAME: string = "questions";
   cateGoryService: CategoryService;
+  answerService: AnswerService;
   constructor() {
     super();
     this.db = MongoDataStore.db;
     this.cateGoryService = new CategoryService();
+    this.answerService = new AnswerService();
   }
 
   public async addQuestionToDB(question: object) {
@@ -56,11 +60,25 @@ export class QuestionService extends BaseObject {
   }
 
   public async listQuestions(params: object) {
+    var attemptToSave = {};
     try {
       let allQuestions = await this.refactorQuestionAndOptionSequence(
         params["categoryid"]
       );
-      return allQuestions;
+      attemptToSave["attemptid"] = uuid();
+      attemptToSave["totalnumberofquestions"] = allQuestions.length;
+      attemptToSave["iscurrentlyattempting"] = true;
+      attemptToSave["lastupdate"] = new Date().toISOString();
+      attemptToSave["totaltime"] = 20;
+      attemptToSave["currentlyattemptingquestionindex"] = 0;
+      attemptToSave["questiongenerated"] = allQuestions;
+      var attemptGenerated = await this.answerService.addAnswerAttempt(
+        attemptToSave
+      );
+      var returnValue = await this.answerService.getAnswerAttemptByID(
+        attemptToSave["attemptid"]
+      );
+      return returnValue;
     } catch (error) {
       throw error;
     }

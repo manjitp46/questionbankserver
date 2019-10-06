@@ -32,5 +32,22 @@
         "example": ["8659c343-4320-48cd-aee3-bdd6f8275a1f"]
       }
     }
+  },
+  "attemptanswer": {
+    "type": "object",
+    "properties": {
+      "attemptid": {
+        "type": "string",
+        "example": "6154a11a-2256-4596-9dc8-5fd55f871abe"
+      },
+      "questionid": {
+        "type": "string",
+        "example": "6bb2af4d-b326-42ad-bc9c-eaee27898572"
+      },
+      "optionselected": {
+        "type": "array",
+        "example": ["Tankari Script"]
+      }
+    }
   }
 }

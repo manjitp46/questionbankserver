@@ -93,6 +93,30 @@
           "$ref": "./definitions/httpresponses.json/#/http_ok"
         }
       }
+    },
+    "/questionbank/v1/answer": {
+      "post": {
+        "tags": ["Answers"],
+        "summary": "Helps to Attempt Questions",
+        "description": "Save Attempt to database",
+        "operationId": "attemtanswer",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "data",
+            "description": "attemptanswer",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions/question.json/#/attemptanswer"
+            }
+          }
+        ],
+        "responses": {
+          "$ref": "./definitions/httpresponses.json/#/http_ok"
+        }
+      }
     }
   }
 }
