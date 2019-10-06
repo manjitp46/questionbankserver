@@ -104,7 +104,7 @@ export class AnswerService extends BaseObject {
   ): Promise<any> {
     try {
       let query = {
-        "answers.questionid": "6bb2af4d-b326-42ad-bc9c-eaee27898572"
+        "answers.questionid": questionObj["questionid"]
       };
       var result = this.db.collection(this.COLLECTION_NAME).find(query);
       result = await result.toArray();
